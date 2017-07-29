@@ -22,4 +22,5 @@ Methods on SE(3)](https://arxiv.org/pdf/1003.2005.pdf)
   * [ ] Translation only
   * [ ] SO(3) avoidance
 * [ ] Avoid complicated dependencies
+  * [ ] Need to list dependencies - `virtualenv` or `conda env` etc.
 * [ ] Kinematics library

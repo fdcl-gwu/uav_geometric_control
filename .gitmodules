@@ -1,0 +1,3 @@
+[submodule "python/kinematics"]
+	path = python/kinematics
+	url = git@github.com:fdcl-gwu/kinematics.git
