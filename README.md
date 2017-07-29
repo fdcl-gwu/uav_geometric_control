@@ -6,6 +6,7 @@ Central Repo for SE(3) geometric controller
 
 * Different programming languages
   * [ ] C++/C
+    * [ ] add link to ROS package
   * [ ] Python
   * [ ] Matlab
   * All languages equivalent (same function and variable names)
