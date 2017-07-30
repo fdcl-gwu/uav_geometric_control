@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8.2)
 
-project(DP_Example)
+project(controller)
 
+set(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/include)
 include(CTest)
 
 if (CMAKE_VERSION VERSION_LESS 3.2)
@@ -31,6 +32,11 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include"
                         "${gmock_SOURCE_DIR}/include")
 endif()
+
+include_directories(${COMMON_INCLUDES})
+
+add_library(controller src/controller.cpp)
+add_executable(main src/main.cpp)
 
 # Trivial example using gtest and gmock
 add_executable(utest tests/utest.cpp)
