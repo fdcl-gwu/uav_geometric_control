@@ -5,7 +5,7 @@
 
 using namespace std;
 
-controller test;
+Controller test;
 
 TEST(ControllerParam, mass)
 {

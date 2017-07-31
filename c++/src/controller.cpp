@@ -2,7 +2,7 @@
 using namespace Eigen;
 using namespace std;
 
-void controller::GeometricPositionController(Vector3d xd, Vector3d xd_dot, Vector3d xd_2dot,Vector3d Wd, Vector3d Wd_dot, Vector3d x, Vector3d v, Vector3d W_in, Matrix3d R){
+void Controller::GeometricPositionController(Vector3d xd, Vector3d xd_dot, Vector3d xd_2dot,Vector3d Wd, Vector3d Wd_dot, Vector3d x, Vector3d v, Vector3d W_in, Matrix3d R){
 //   std::cout.precision(5);
   Vector3d xd_3dot, xd_4dot, b1d, b1d_dot, b1d_2dot;
   xd_3dot = xd_4dot = b1d_dot = b1d_2dot = Vector3d::Zero();

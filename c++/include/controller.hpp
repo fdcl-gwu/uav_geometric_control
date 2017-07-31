@@ -16,7 +16,7 @@ Vector3d b1d_ned, eiX, eiX_last, cX, eiX_sat;
 float m, g, del_t, kx, kv, kiX, kRr, kW, kR, kiR, f_total, eiR_sat, cR;
 };
 
-class controller
+class Controller
 {
 private:
     node _params;
