@@ -3,6 +3,8 @@
 #ifndef AUX_FUNCTIONS_H
 #define AUX_FUNCTIONS_H
 #include <eigen3/Eigen/Dense>
+#include <iostream>
+
 using namespace Eigen;
 
 void vec_average(MatrixXd& M_in, Vector3d& v_in){
@@ -13,8 +15,8 @@ void vec_average(MatrixXd& M_in, Vector3d& v_in){
   return;
 }
 
-void vee_eigen(Matrix3d xhat, Vector3d& x){
-    x << xhat(2,1), xhat(0,2), xhat(1,0);
+Vector3d vee_eigen(const Matrix3d& xhat){
+    return Vector3d{xhat(2,1), xhat(0,2), xhat(1,0)};
 }
 
 void err_sat(double min_sat, double max_sat, Vector3d& err){

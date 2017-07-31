@@ -82,12 +82,12 @@ void controller::GeometricPositionController(Vector3d xd, Vector3d xd_dot, Vecto
   _params.Rc_dot = Rd_dot;
   _params.Rc_2dot = Rd_2dot;
   // Vector3d Wd, Wd_dot;
-  vee_eigen(Rd.transpose()*Rd_dot, Wd);
-  vee_eigen(Rd.transpose()*Rd_2dot-hat_eigen(Wd)*hat_eigen(Wd), Wd_dot);
+  Wd = vee_eigen(Rd.transpose()*Rd_dot);
+  Wd_dot = vee_eigen(Rd.transpose()*Rd_2dot-hat_eigen(Wd)*hat_eigen(Wd));
   // TODO: _params.Wc and _params.Wc_dot
   _params.Wc = Wd; _params.Wc_dot = Wd_dot;
   // Attitude Error 'eR'
-  vee_eigen(.5*(Rd.transpose()*R-R.transpose()*Rd), _params.eR);
+  _params.eR = vee_eigen(.5*(Rd.transpose()*R-R.transpose()*Rd));
   // Angular Velocity Error 'eW'
   _params.eW = W-R.transpose()*Rd*Wd;
   // Attitude Integral Term

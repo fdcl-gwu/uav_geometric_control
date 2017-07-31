@@ -21,9 +21,15 @@ class controller
 private:
     node _params;
 public:
-    inline void set_mass(float m){this->_params.m = m;}
-    inline float get_mass(){return _params.m;}
     void GeometricPositionController(Vector3d xd, Vector3d xd_dot, Vector3d xd_ddot,Vector3d Wd, Vector3d Wddot, Vector3d x_v, Vector3d v_v, Vector3d W_in, Matrix3d R_v);
     void GeometricControl_SphericalJoint_3DOF(Vector3d Wd, Vector3d Wddot, Vector3d W, Matrix3d R);
+    inline void set_mass(float m){this->_params.m = m;}
+    inline float get_mass(){return _params.m;}
+    inline void set_gravity(float gravity){this->_params.g = gravity;}
+    inline float get_gravity(){return _params.g;}
+    inline void set_J(Matrix3d J){this->_params.J = J;}
+    inline Matrix3d& get_J(){return _params.J;}
+
+
 };
 #endif
