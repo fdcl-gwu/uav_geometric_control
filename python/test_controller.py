@@ -13,6 +13,7 @@ t = np.random.rand()*100
 
 state = np.hstack((pos,vel, R, ang_vel))
 
+
 class TestDumbbellInertialDesiredAttitude():
     
     dum = Dumbbell()
@@ -30,6 +31,9 @@ class TestDumbbellInertialDesiredAttitude():
     def test_desired_attitude_satifies_kinematics(self):
         np.testing.assert_array_almost_equal(self.Rd_dot,
                 self.Rd.dot(attitude.hat_map(self.ang_vel_d)))
+
+    def test_moment_of_inertia(self):
+        np.testing.assert_allclose(self.dum.J, np.trace(self.dum.Jd)*np.eye(3,3) - self.dum.Jd)
  
 class TestDumbbellInertialAttitudeController():
     """Test the attitude controller for the inertial eoms
