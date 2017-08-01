@@ -7,18 +7,51 @@ import kinematics.attitude as attitude
 
 
 class Dumbbell(object):
-    """Dumbbell spacecraft model
+    r"""Dumbbell object
+
+    Creates a dumbbell model of a rigid spacecraft around an asteroid.
+    Method functions allows for simulation in both the body and inertial frames.
+    Also included is the capability to control the trajectory of the dumbbell on SE(3)
+
+    Author
+    ------
+    Shankar Kulumani		GWU		skulumani@gwu.edu
+
+    References
+    ----------
+    This derivation is based on the following works:
+
+    .. [1] LEE, Taeyoung, LEOK, Melvin y MCCLAMROCH, N Harris. "Lie Group
+    Variational Integrators for the Full Body Problem". Computer Methods in
+    Applied Mechanics and Engineering. 2007, vol 196, no. 29, p. 2907--2924.
 
     """
+
     def __init__(self, m1=100.0, m2=100.0, l=0.003):
-        """Initialize the dumbbell instance with all of it's properties
-            
+        r"""Initalize dumbbell model
+
+        This will initialize the properties of a dumbbell model of a rigid
+        spacecraft around an asteroid.
+
+        Parameters
+        ----------
+        m1 : float
+            Mass in kg of first spherical dumbbell mass
+        m2 : float
+            Mass in kg of second spherical dumbbell mass
+        l : float
+            length in meters of the distance between the COM of m1 and m2
+
+        Author
+        ------
+        Shankar Kulumani		GWU		skulumani@gwu.edu
+
         """
 
-        self.m1 = m1 # kg first mass
-        self.m2 = m2 # kg second mass
-        self.l = l # km rigid link
-        self.r1 = 0.001 # km radius of each spherical mass 
+        self.m1 = m1  # kg first mass
+        self.m2 = m2  # kg second mass
+        self.l = l  # km rigid link
+        self.r1 = 0.001  # km radius of each spherical mass
         self.r2 = 0.001
 
         self.mratio = self.m2/(self.m1+self.m2)
