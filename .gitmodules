@@ -1,3 +1,6 @@
 [submodule "python/kinematics"]
 	path = python/kinematics
 	url = git@github.com:fdcl-gwu/kinematics.git
+[submodule "cpp/libraries/eigen"]
+	path = cpp/libraries/eigen
+	url = https://github.com/fdcl-gwu/eigen.git

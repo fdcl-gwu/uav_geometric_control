@@ -2,7 +2,7 @@
 #define CONTROLLER_H
 
 #include "math.hpp"
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 using namespace Eigen;
 
 struct node

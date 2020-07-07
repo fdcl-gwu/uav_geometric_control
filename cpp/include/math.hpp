@@ -2,7 +2,7 @@
 
 #ifndef AUX_FUNCTIONS_H
 #define AUX_FUNCTIONS_H
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include <iostream>
 
 using namespace Eigen;
