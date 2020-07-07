@@ -7,7 +7,7 @@
 
 // user headers
 #include "common_types.hpp"
-#include "matrix_operations.hpp"
+#include "fdcl/matrix_utils.hpp"
 
 
 // external headers

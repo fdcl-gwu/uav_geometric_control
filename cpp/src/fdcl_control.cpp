@@ -26,9 +26,7 @@ fdcl::control::control(void)
 
 fdcl::control::~control(void)
 {
-    delete state;
-    delete command;
-    delete config_file;
+    // do nothing
 };
 
 
@@ -221,47 +219,46 @@ void fdcl::control::set_error_to_zero(void)
 
 void fdcl::control::load_config(void)
 {
-    config_file->read("Integral.use_integral", use_integral);
+    config_file->read("integral.use_integral", use_integral);
 
     Vector3 temp_3x1;
-    config_file->read("Control.kX", temp_3x1);
+    config_file->read("control.kX", temp_3x1);
     kX(0, 0) = temp_3x1[0];
     kX(1, 1) = temp_3x1[1];
     kX(2, 2) = temp_3x1[2];
 
-    config_file->read("Control.kV", temp_3x1);
+    config_file->read("control.kV", temp_3x1);
     kV(0, 0) = temp_3x1[0];
     kV(1, 1) = temp_3x1[1];
     kV(2, 2) = temp_3x1[2];
 
-    config_file->read("Integral.kIX", kIX);
-    config_file->read("Integral.c1", c1);
+    config_file->read("integral.kIX", kIX);
+    config_file->read("integral.c1", c1);
 
-    config_file->read("Control.kR", temp_3x1);
+    config_file->read("control.kR", temp_3x1);
     kR(0, 0) = temp_3x1[0];
     kR(1, 1) = temp_3x1[1];
     kR(2, 2) = temp_3x1[2];
 
-    config_file->read("Control.kW", temp_3x1);
+    config_file->read("control.kW", temp_3x1);
     kW(0, 0) = temp_3x1[0];
     kW(1, 1) = temp_3x1[1];
     kW(2, 2) = temp_3x1[2];
 
-    config_file->read("Integral.kIR", kIR);
-    config_file->read("Integral.c2", c2);
-    config_file->read("Integral.c3", c3);
+    config_file->read("integral.kIR", kIR);
+    config_file->read("integral.c2", c2);
+    config_file->read("integral.c3", c3);
 
-    config_file->read("Integral.kyI", kyI); // yaw
-    config_file->read("Integral.ki", ki);   //position
-    config_file->read("Integral.kI", kI);   //roll & pitch
+    config_file->read("integral.kyI", kyI); // yaw
+    config_file->read("integral.ki", ki);   //position
+    config_file->read("integral.kI", kI);   //roll & pitch
 
-    config_file->read("Control.c_tf", c_tf);
-    config_file->read("Control.l", l);
+    config_file->read("control.c_tf", c_tf);
+    config_file->read("control.l", l);
 
-    config_file->read("UAV.J", J);
-    config_file->read("UAV.m", m);
-    config_file->read("UAV.g", g);
-
+    config_file->read("uav.J", J);
+    config_file->read("uav.m", m);
+    config_file->read("uav.g", g);
 
     Eigen::Matrix<double, 4, 4> fM_to_forces;
     fM_to_forces << 1.0, 1.0, 1.0, 1.0,

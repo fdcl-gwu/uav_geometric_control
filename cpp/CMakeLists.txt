@@ -12,7 +12,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/libraries/fdcl_param fdcl_param)
 ## Controller
 add_library(controller 
     src/fdcl_control.cpp
-    src/fdcl_matrix_operations.cpp
+    src/fdcl_matrix_utils.cpp
 )
 target_link_libraries(controller
     PUBLIC fdcl_param

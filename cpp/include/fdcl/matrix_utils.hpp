@@ -4,8 +4,8 @@
 *  Miscellaneous math functions used in FDCL are defined here
 */
 
-#ifndef FDCL_MATRIX_OPERATION_HPP
-#define FDCL_MATRIX_OPERATION_HPP
+#ifndef FDCL_MATRIX_UTILS_HPP
+#define FDCL_MATRIX_UTILS_HPP
 
 #include <iostream>
 #include <Eigen/Dense>

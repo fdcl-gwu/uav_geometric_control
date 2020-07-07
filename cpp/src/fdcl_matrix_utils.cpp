@@ -1,4 +1,4 @@
-#include "fdcl/matrix_operations.hpp"
+#include "fdcl/matrix_utils.hpp"
 
 
 Matrix3 hat(const Vector3 v)

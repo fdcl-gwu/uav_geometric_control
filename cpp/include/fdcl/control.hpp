@@ -10,7 +10,7 @@
 #include "common_types.hpp"
 #include "fdcl/param.hpp"
 #include "fdcl/integral_utils.hpp"
-#include "matrix_operations.hpp"
+#include "fdcl/matrix_utils.hpp"
 
 
 // external headers
@@ -92,13 +92,13 @@ public:
 
     /** \fn void attitude_control(void)
      * Decouple-yaw controller proposed on "Geometric Controls of a Quadrotor
-     * with a Decoupled Yaw Control"
+     * with a Decoupled Yaw control"
      */
     void attitude_control(void);
 
     /** \fn void position_control(void)
      * Position controller as proposed in "Geometric Controls of a Quadrotor
-     * with a Decoupled Yaw Control"
+     * with a Decoupled Yaw control"
      */
     void position_control(void);
 
