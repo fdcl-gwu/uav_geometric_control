@@ -4,3 +4,6 @@
 [submodule "cpp/libraries/eigen"]
 	path = cpp/libraries/eigen
 	url = https://github.com/fdcl-gwu/eigen.git
+[submodule "cpp/libraries/fdcl_param"]
+	path = cpp/libraries/fdcl_param
+	url = https://github.com/fdcl-gwu/fdcl_param.git

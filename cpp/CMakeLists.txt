@@ -5,11 +5,30 @@ set (CMAKE_CXX_STANDARD 11)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/libraries/eigen)
+include_directories(${PROJECT_SOURCE_DIR}/libraries/fdcl_param/include)
 
-add_library(controller src/controller.cpp)
-add_executable(main src/main.cpp)
+add_subdirectory(${PROJECT_SOURCE_DIR}/libraries/fdcl_param fdcl_param)
 
-## Following are for unit testing
+## Controller
+add_library(controller 
+    src/fdcl_control.cpp
+    src/fdcl_matrix_operations.cpp
+)
+target_link_libraries(controller
+    PUBLIC fdcl_param
+)
+
+## Main executable
+add_executable(example 
+    src/main.cpp
+)
+target_link_libraries(example
+    PUBLIC controller fdcl_param
+)
+
+
+
+## Following are for unit testing ##############################################
 # Trivial example using gtest and gmock
 include(CTest)
 
