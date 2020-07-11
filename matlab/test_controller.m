@@ -1,3 +1,25 @@
+% 
+% Copyright (c) 2020 Flight Dynamics and Control Lab
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a
+% copy of this software and associated documentation files (the 
+% "Software"), to deal in the Software without restriction, including 
+% without limitation the rights to use, copy, modify, merge, publish, 
+% distribute, sublicense, and/or sell copies of the Software, and to permit
+% persons to whom the Software is furnished to do so, subject to the 
+% following conditions:
+% 
+% The above copyright notice and this permission notice shall be included
+%  in all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+% MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%%
 close all;
 addpath('aux_functions');
 addpath('test_functions');
@@ -43,7 +65,7 @@ k.wy = 0.15;
 k.yI = 2;
 
 %% Initial conditions
-x0 = 0 * [1, 1, 1]';
+x0 = [0, 0, 0]';
 v0 = [0, 0, 0]';
 R0 = expm(pi * hat([0, 0, 1]'));
 W0 = [0, 0, 0]';
@@ -82,6 +104,7 @@ for i = 1:N
     
     % Unpack desired values
     d.x(:,i) = des.x;
+    d.v(:,i) = des.v;
     d.b1(:,i) = des.b1;
     d.R(:,:,i) = calc.R;
 end
@@ -106,24 +129,24 @@ set(gca, 'FontName', 'Times New Roman');
 figure;
 plot_3x1(t, eI .* [k.I, k.I, k.yI]', '', xlabel_, 'e', linetype, linewidth)
 plot_3x1(t, param.R_delta .* ones(3, N), ...
-    '', xlabel_, 'e_I', 'r:', linewidth)
+    '', xlabel_, 'e_I', 'r', linewidth)
 set(gca, 'FontName', 'Times New Roman');
 
 figure;
 plot_3x1(t, ei * k.i, '', xlabel_, 'e_i', linetype, linewidth)
 plot_3x1(t, param.x_delta .* ones(3, N), ...
-    '', xlabel_, 'e_i', 'r:', linewidth)
+    '', xlabel_, 'e_i', 'r', linewidth)
 set(gca, 'FontName', 'Times New Roman');
 
 figure;
 plot_3x1(t, x, '', xlabel_, 'x', linetype, linewidth)
-plot_3x1(t, d.x, '', xlabel_, 'x', 'r:', linewidth)
+plot_3x1(t, d.x, '', xlabel_, 'x', 'r', linewidth)
 set(gca, 'FontName', 'Times New Roman');
 
 figure;
 plot3(x(1,:), x(2,:), x(3,:), 'k');
 hold on;
-plot3(d.x(1,:), d.x(2,:), d.x(3,:), 'r:');
+plot3(d.x(1,:), d.x(2,:), d.x(3,:), 'r');
 set(gca, 'YDir', 'reverse', 'ZDir', 'reverse');
 axis equal;
 xlabel('$x_1$', 'interpreter', 'latex');

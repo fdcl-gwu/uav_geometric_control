@@ -1,3 +1,25 @@
+% 
+% Copyright (c) 2020 Flight Dynamics and Control Lab
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a
+% copy of this software and associated documentation files (the 
+% "Software"), to deal in the Software without restriction, including 
+% without limitation the rights to use, copy, modify, merge, publish, 
+% distribute, sublicense, and/or sell copies of the Software, and to permit
+% persons to whom the Software is furnished to do so, subject to the 
+% following conditions:
+% 
+% The above copyright notice and this permission notice shall be included
+%  in all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+% MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 function [f, M, ei_dot, eI_dot, error, calculated] ...
     = position_control(X, desired, k, param)
 % [f, M, ei_dot, eI_dot, error, calculated] = position_control(X, desired, 
@@ -24,6 +46,9 @@ function [f, M, ei_dot, eI_dot, error, calculated] ...
 %    error: (struct) errors for attitude and position control (for data
 %    logging)
 %    calculated: (struct) calculated desired commands (for data logging)
+
+% Use this flag to enable or disable the decoupled-yaw attitude controller.
+use_decoupled = true;
 
 % Unpack states
 [x, v, R, W, ei, eI] = split_to_states(X);
@@ -91,12 +116,23 @@ W3_dot = dot(R * e3, Rc * Wc_dot) ...
     + dot(R * hat(W) * e3, Rc * Wc);
 
 %% Run attitude controller
-[M, eI_dot, error.R, error.W, error.y, error.Wy] ...
-    = attitude_control( ...
-    R, W, eI, ...
-    b3c, b3c_dot, b3c_ddot, b1c, W3, W3_dot, ...
-    k, param);
-
+if use_decoupled
+    [M, eI_dot, error.b, error.W, error.y, error.Wy] ...
+        = attitude_control_decoupled_yaw( ...
+        R, W, eI, ...
+        b3c, b3c_dot, b3c_ddot, b1c, W3, W3_dot, ...
+        k, param);
+    
+    % Only used for comparison between two controllers
+    error.R = 1 / 2 * vee(Rc' * R - R' * Rc);
+else
+    [M, eI_dot, error.R, error.W] = attitude_control( ...
+        R, W, eI, ...
+        Rc, Wc, Wc_dot, ...
+        k, param);
+    error.y = 0;
+    error.Wy = 0;
+end 
 %% Saving data
 calculated.b3 = b3c;
 calculated.b3_dot = b3c_dot;
