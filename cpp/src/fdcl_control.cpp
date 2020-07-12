@@ -147,11 +147,45 @@ void fdcl::control::position_control(void)
         - e3.dot(hat(state->W) * state->R.transpose() \
         * command->Rd * command->Wd);
 
-    this->attitude_control();
+    // This is set through the config file.
+    if (use_decoupled_yaw)
+    {
+        this->attitude_control_decoupled_yaw();
+    }
+    else
+    {
+        this->attitude_control();
+    }
+    
 }
 
 
 void fdcl::control::attitude_control(void)
+{
+    Matrix3 RdtR = command->Rd.transpose() * state->R;
+    eR = 0.5 * vee(RdtR - RdtR.transpose());
+    eW = state->W - state->R.transpose() * command->Rd * command->Wd;
+
+    if(use_integral)
+    {
+        eIR.integrate(eW + c2 * eR, dt);
+    }
+
+    M = - kR * eR \
+        - kW * eW \
+        - kI * eIR.error \
+        + hat(state->R.transpose() * command->Rd * command->Wd) * J * \
+            state->R.transpose() * command->Rd * command->Wd \
+        + J * state->R.transpose() * command->Rd * command->Wd_dot;
+
+
+    fM(0) = f_total;
+    fM.block<3,1>(1,0) = M;
+    f_motor = fM_to_forces_inv * fM;
+}
+
+
+void fdcl::control::attitude_control_decoupled_yaw(void)
 {
     b1 = state->R * e1;
     b2 = state->R * e2;
@@ -241,6 +275,7 @@ void fdcl::control::set_error_to_zero(void)
 void fdcl::control::load_config(void)
 {
     config_file->read("integral.use_integral", use_integral);
+    config_file->read("control.use_decoupled_yaw", use_decoupled_yaw);
 
     Vector3 temp_3x1;
     config_file->read("control.kX", temp_3x1);

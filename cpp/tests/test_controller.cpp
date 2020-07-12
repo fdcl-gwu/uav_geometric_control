@@ -34,7 +34,7 @@ TEST(TestControl, Initialize)
     command = new fdcl::command_t();
 
     config_file = new fdcl::param();
-    config_file->open("../tests/test.cfg");
+    config_file->open("../tests/test_decoupled.cfg");
 
     fdcl::control controller(state, command, config_file);
 
@@ -47,6 +47,106 @@ TEST(TestControl, Initialize)
     Matrix3 J_cfg;
     J_cfg << 0.02, 0.0, 0.0, 0.0, 0.02, 0.0, 0.0, 0.0, 0.04;
     ASSERT_TRUE(J.isApprox(J_cfg));
+
+    config_file->close();
+
+    delete config_file;
+    delete state;
+    delete command;
+}
+
+
+TEST(TestControl, DecoupledZeroInitConditions)
+{
+    fdcl::state_t *state;
+    fdcl::command_t *command;
+    fdcl::param *config_file;
+
+    state = new fdcl::state_t();
+    command = new fdcl::command_t();
+
+    config_file = new fdcl::param();
+    config_file->open("../tests/test_decoupled.cfg");
+
+    double f, f_out;
+    Vector3 M, M_out;
+
+    fdcl::control controller(state, command, config_file);
+
+    state->x.setZero();
+    state->v.setZero();
+    state->a.setZero();
+    state->R.setIdentity();
+    state->W.setZero();
+
+    command->xd.setZero();
+    command->xd_dot.setZero();
+    command->xd_2dot.setZero();
+    command->xd_3dot.setZero();
+    command->xd_4dot.setZero();
+    command->b1d << 1.0, 0.0, 0.0;
+    command->b1d_dot.setZero();
+    command->b1d_ddot.setZero();
+
+    f = 19.1295;
+    M << 0.0, 0.0, 0.0;
+
+    controller.position_control();
+    controller.output_fM(f_out, M_out);
+
+    ASSERT_FLOAT_EQ(f, f_out);
+    ASSERT_TRUE(M.isApprox(M_out));
+
+    config_file->close();
+
+    delete config_file;
+    delete state;
+    delete command;
+}
+
+
+TEST(TestControl, DecoupledNonZeroInitConditions)
+{
+    fdcl::state_t *state;
+    fdcl::command_t *command;
+    fdcl::param *config_file;
+
+    state = new fdcl::state_t();
+    command = new fdcl::command_t();
+
+    config_file = new fdcl::param();
+    config_file->open("../tests/test_decoupled.cfg");
+
+    double f, f_out;
+    Vector3 M, M_out;
+
+    fdcl::control controller(state, command, config_file);
+
+    state->x << 0.0, 1.0, 2.2;
+    state->v << 0.0, 1.0, 2.2;
+    state->a.setZero();
+    state->R << -1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0;
+    state->W.setZero();
+
+    command->xd << -1.0, 0.0, 0.0;
+    command->xd_dot << 0.0, -2.0, 0.0;
+    command->xd_2dot << 0.0, 0.0, -5.0;
+    command->xd_3dot << 0.0, 1.2, 0.0;
+    command->xd_4dot << 2.1, 0.0, 0.0;
+    command->b1d << 0.707106781186548, 0.707106781186548, 0.0;
+    command->b1d_dot << 0.0, 0.707106781186548, 0.707106781186548;
+    command->b1d_ddot << 0.707106781186548, 0.0, 0.707106781186548;
+
+    f = 68.4795;
+    M << 1.07467244713611, -0.277520557244241, -0.554472450210804;
+
+    controller.position_control();
+    controller.output_fM(f_out, M_out);
+    
+    // std::cout << M_out << std::endl;
+
+    ASSERT_FLOAT_EQ(f, f_out);
+    ASSERT_TRUE(M.isApprox(M_out));
 
     config_file->close();
 
@@ -138,7 +238,7 @@ TEST(TestControl, NonZeroInitConditions)
     command->b1d_ddot << 0.707106781186548, 0.0, 0.707106781186548;
 
     f = 68.4795;
-    M << 1.07467244713611, -0.277520557244241, -0.554472450210804;
+    M << 0.569002526179056, 0.131284659695342, -0.597667987195412;
 
     controller.position_control();
     controller.output_fM(f_out, M_out);

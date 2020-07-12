@@ -113,10 +113,17 @@ public:
     void set_error_to_zero(void);
 
     /** \fn void attitude_control(void)
+     * Decouple-yaw controller proposed on "Control of Complex Maneuvers
+     * for a Quadrotor UAV using Geometric Methods on SE(3)"
+     */
+    void attitude_control(void);
+
+    /** \fn void attitude_control_decoupled_yaw(void)
      * Decouple-yaw controller proposed on "Geometric Controls of a Quadrotor
      * with a Decoupled Yaw control"
      */
-    void attitude_control(void);
+    void attitude_control_decoupled_yaw(void);
+
 
     /** \fn void position_control(void)
      * Position controller as proposed in "Geometric Controls of a Quadrotor
@@ -155,6 +162,10 @@ private:
      * configuration parameters from
      */
 
+    bool use_decoupled_yaw = true; /**< Whether to use decoupled-yaw controller
+     * or to use regular non-decoupled control for attitude
+     */
+
     Vector3 e1; /**< Direction of the first axis of the fixed frame */
     Vector3 e2; /**< Direction of the second axis of the fixed frame */
     Vector3 e3; /**< Direction of the third axis of the fixed frame */
@@ -173,11 +184,11 @@ private:
     Matrix3 kW = Matrix3::Zero();  /**< Angular rate gains */
     double kyw = 0.0; /**< Yaw angular rate gain for decoupled-yaw controller */
 
-    // position gains
+    // Position gains
     Matrix3 kX = Matrix3::Zero(); /**< Position gains */
     Matrix3 kV = Matrix3::Zero(); /**< Velocity gains */
 
-    // integral gains
+    // Integral gains
     double kIR = 0.0;  /**< Attitude integral gain */
     double ki = 0.0;  /**< Position integral gain */
     double kI = 0.0;  /**< Attitude integral gain for roll and pitch */
