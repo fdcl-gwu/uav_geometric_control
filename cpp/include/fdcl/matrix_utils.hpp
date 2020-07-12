@@ -62,4 +62,18 @@ Vector3 vee(const Matrix3 V);
 void saturate(Vector3 &x, const double x_min, const double x_max);
 
 
+/** \fn deriv_unit_vector(const Vector3 &A, const Vector3 &A_dot, \
+ * const Vector3 A_ddot, Vector3 &q, Vector3 &q_dot, Vector3 &q_ddot)
+ * Outputs the time derivatives of a vector after normalizing it.
+ * @param A Non-normal vector
+ * @param A_dot Time derivative of A
+ * @param A_ddot Time derivative of A_dot
+ * @param 
+ */
+void deriv_unit_vector( \
+    const Vector3 &A, const Vector3 &A_dot, const Vector3 &A_ddot, \
+    Vector3 &q, Vector3 &q_dot, Vector3 &q_ddot
+);
+
+
 #endif

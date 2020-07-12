@@ -70,3 +70,22 @@ void saturate(Vector3 &x, const double x_min, const double x_max)
     }
 }
 
+
+void deriv_unit_vector( \
+    const Vector3 &A, const Vector3 &A_dot, const Vector3 &A_ddot, \
+    Vector3 &q, Vector3 &q_dot, Vector3 &q_ddot
+)
+{
+    double nA = A.norm();
+    double nA3 = pow(nA, 3);
+    double nA5 = pow(nA, 5);
+
+    q = A / nA;
+    q_dot = A_dot / nA \
+        - A * A.dot(A_dot) / nA3;
+
+    q_ddot = A_ddot / nA \
+        - A_dot / nA3 * (2 * A.dot(A_dot)) \
+        - A / nA3 * (A_dot.dot(A_dot) + A.dot(A_ddot)) \
+        + 3 * A / nA5 * pow(A.dot(A_dot), 2);
+}

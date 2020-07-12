@@ -58,6 +58,7 @@ function [M, eI_dot, eb, ew, ey, ewy] = attitude_control_decoupled_yaw(...
 %% Unpack other parameters
 J = param.J;
 c2 = param.c2;
+c3 = param.c3;
 
 %% Body axes
 e1 = [1, 0, 0]';
@@ -103,7 +104,7 @@ M3 = - k.y * ey ...
 
 eI_dot = [b1' * (c2 * eb + ew);
     b2' * (c2 * eb + ew);
-    c2 * ey + ewy];
+    c3 * ey + ewy];
 
 M=[M1, M2, M3]';
 

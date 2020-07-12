@@ -94,67 +94,53 @@ void fdcl::control::position_control(void)
         - m * g * e3 \
         + m * command->xd_2dot;
 
-    Vector3 L = state->R * e3;
-    Vector3 Ldot = state->R * hat(state->W) * e3; // eq (22)
-    f_total = -A.dot(state->R * e3);
+    Vector3 b3 = state->R * e3;
+    Vector3 b3_dot = state->R * hat(state->W) * e3; // eq (22)
+    f_total = -A.dot(b3);
 
     // intermediate terms for rotational errors
-    Vector3 ea = g * e3 - f_total / m * L - command->xd_2dot;
-    Vector3 Adot = -kX * eV - kV * ea + m * command->xd_3dot;
-    // Lee Matlab: -ki * satdot(sigma,ei,ev + c1 * ex);
+    Vector3 ea = g * e3 - f_total / m * b3 - command->xd_2dot;
+    Vector3 A_dot = -kX * eV - kV * ea + m * command->xd_3dot;
 
-    double fdot = -Adot.dot(L) - A.dot(Ldot);
-    Vector3 eb = -fdot / m * L - f_total / m * Ldot - command->xd_3dot;
-    Vector3 Addot = -kX * ea - kV * eb + m * command->xd_4dot;
-    // Lee Matlab: -ki * satdot(sigma,ei,ea + c1 * ev);
+    double fdot = -A_dot.dot(b3) - A.dot(b3_dot);
+    Vector3 eb = -fdot / m * b3 - f_total / m * b3_dot - command->xd_3dot;
+    Vector3 A_ddot = -kX * ea - kV * eb + m * command->xd_4dot;
 
-    double nA = A.norm();
-    Vector3 Ld = -A / nA;
-    Vector3 Lddot = -Adot / nA + A * A.dot(Adot) / pow(nA, 3);
-    Vector3 Ldddot = -Addot / nA \
-        + Adot / pow(nA, 3) * (2 * A.dot(Adot)) \
-        + A / pow(nA, 3) * (Adot.dot(Adot) + A.dot(Addot)) \
-        - 3.0 * A / pow(nA, 5) * pow(A.dot(Adot), 2);
+    Vector3 b3c, b3c_dot, b3c_ddot;
+    deriv_unit_vector(-A, -A_dot, -A_ddot, b3c, b3c_dot, b3c_ddot);
 
-    Vector3 Ld2 = -hat(command->b1d) * Ld;
-    Vector3 Ld2dot = -hat(command->b1d_dot) * Ld - hat(command->b1d) * Lddot;
-    Vector3 Ld2ddot = -hat(command->b1d_ddot) * Ld \
-        - 2.0 * hat(command->b1d_dot) * Lddot 
-        - hat(command->b1d) * Ldddot;
+    Vector3 A2 = -hat(command->b1d) * b3c;
+    Vector3 A2_dot = -hat(command->b1d_dot) * b3c - hat(command->b1d) * b3c_dot;
+    Vector3 A2_ddot = -hat(command->b1d_ddot) * b3c \
+        - 2.0 * hat(command->b1d_dot) * b3c_dot 
+        - hat(command->b1d) * b3c_ddot;
 
-    double nLd2 = Ld2.norm();
-    Vector3 Rd2 = Ld2 / nLd2;
-    Vector3 Rd2dot = Ld2dot / nLd2 - Ld2.dot(Ld2dot) / pow(nLd2, 3) * Ld2;
-    Vector3 Rd2ddot = Ld2ddot / nLd2 \
-        - Ld2.dot(Ld2dot) / pow(nLd2, 3) * Ld2dot \
-        - Ld2dot.dot(Ld2dot) / pow(nLd2, 3) * Ld2 \
-        - Ld2.dot(Ld2ddot) / pow(nLd2, 3) * Ld2 \
-        - Ld2.dot(Ld2dot) / pow(nLd2, 3) * Ld2dot \
-        + 3.0 * pow(Ld2.dot(Ld2dot), 2) / pow(nLd2, 5) * Ld2;
+    Vector3 b2c, b2c_dot, b2c_ddot;
+    deriv_unit_vector(A2, A2_dot, A2_ddot, b2c, b2c_dot, b2c_ddot);
 
-    Vector3 Rd1 = hat(Rd2) * Ld;
-    Vector3 Rd1dot = hat(Rd2dot) * Ld + hat(Rd2) * Lddot;
-    Vector3 Rd1ddot = hat(Rd2ddot) * Ld \
-        + 2.0 * hat(Rd2dot) * Lddot \
-        + hat(Rd2) * Ldddot;
+    Vector3 b1c = hat(b2c) * b3c;
+    Vector3 b1c_dot = hat(b2c_dot) * b3c + hat(b2c) * b3c_dot;
+    Vector3 b1c_ddot = hat(b2c_ddot) * b3c \
+        + 2.0 * hat(b2c_dot) * b3c_dot \
+        + hat(b2c) * b3c_ddot;
 
     Matrix3 Rddot, Rdddot;
 
-    command->Rd << Rd1, Rd2, Ld;
-    Rddot << Rd1dot, Rd2dot, Lddot;
-    Rdddot << Rd1ddot, Rd2ddot, Ldddot;
+    command->Rd << b1c, b2c, b3c;
+    Rddot << b1c_dot, b2c_dot, b3c_dot;
+    Rdddot << b1c_ddot, b2c_ddot, b3c_ddot;
 
     command->Wd = vee(command->Rd.transpose() * Rddot);
     command->Wd_dot = vee(command->Rd.transpose() * Rdddot \
         - hat(command->Wd) * hat(command->Wd));
 
     // roll / pitch
-    command->b3d = Ld;
-    command->b3d_dot = Lddot;
-    command->b3d_ddot = Ldddot;
+    command->b3d = b3c;
+    command->b3d_dot = b3c_dot;
+    command->b3d_ddot = b3c_ddot;
 
     // yaw
-    command->b1c = Rd1;
+    command->b1c = b1c;
     command->wc3 = e3.dot(state->R.transpose() * command->Rd * command->Wd);
     command->wc3_dot = (e3).dot(state->R.transpose() * command->Rd \
         * command->Wd_dot) \

@@ -63,6 +63,7 @@ param.c2 = 2;
 k.y = 0.8;
 k.wy = 0.15;
 k.yI = 2;
+param.c3 = 2;
 
 %% Initial conditions
 x0 = [0, 0, 0]';
