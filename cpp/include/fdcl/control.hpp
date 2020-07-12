@@ -115,12 +115,14 @@ public:
     /** \fn void attitude_control(void)
      * Decouple-yaw controller proposed on "Control of Complex Maneuvers
      * for a Quadrotor UAV using Geometric Methods on SE(3)"
+     * URL: https://arxiv.org/pdf/1003.2005.pdf
      */
     void attitude_control(void);
 
     /** \fn void attitude_control_decoupled_yaw(void)
      * Decouple-yaw controller proposed on "Geometric Controls of a Quadrotor
      * with a Decoupled Yaw control"
+     * URL: https://doi.org/10.23919/ACC.2019.8815189
      */
     void attitude_control_decoupled_yaw(void);
 

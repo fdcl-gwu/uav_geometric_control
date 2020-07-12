@@ -162,6 +162,9 @@ void fdcl::control::position_control(void)
 
 void fdcl::control::attitude_control(void)
 {
+    //  This uses the controller defined in "Control of Complex Maneuvers
+    //  for a Quadrotor UAV using Geometric Methods on SE(3)"
+    //  URL: https://arxiv.org/pdf/1003.2005.pdf
     Matrix3 RdtR = command->Rd.transpose() * state->R;
     eR = 0.5 * vee(RdtR - RdtR.transpose());
     eW = state->W - state->R.transpose() * command->Rd * command->Wd;
@@ -187,6 +190,9 @@ void fdcl::control::attitude_control(void)
 
 void fdcl::control::attitude_control_decoupled_yaw(void)
 {
+    // This uses the controller defined in "Geometric Controls of a Quadrotor
+    // with a Decoupled Yaw Control" 
+    // URL: https://doi.org/10.23919/ACC.2019.8815189
     b1 = state->R * e1;
     b2 = state->R * e2;
     b3 = state->R * e3;

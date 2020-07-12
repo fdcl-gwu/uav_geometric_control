@@ -1,24 +1,75 @@
 # Geometric Control on SE(3)
 
-Central Repo for SE(3) geometric controller with different programming languages
-  * C++
-    * [ROS Package](https://github.com/fdcl-gwu/uav_geometric_controller)
-  * Python
-  * Matlab
-* Unit testing/validtion
-  * Python Controller has some testing
-  * C++ version using `gtest`
+<center>
+  <img src="./images/combined.png"  width="400"/>
+</center>
+
+This includes the geometric controller in SE(3) we use in the Flight Dynamics and Control Lab, in different programming languages.
+We use two main versions of the controller:
+1. [Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3)](https://arxiv.org/pdf/1003.2005.pdf).
+2. [Geometric Controls of a Quadrotor with a Decoupled Yaw Control](https://doi.org/10.23919/ACC.2019.8815189)
+
+The main difference between those two is that the second one decouples the yaw control in the attitude controller.
+This leads to better tracking performance, especially at the presence of large yaw angles, but at the expense of some additinal computations and slightly delayed yaw error convergence.
+Please check [Geometric Controls of a Quadrotor with a Decoupled Yaw Control](https://doi.org/10.23919/ACC.2019.8815189) for more comparisons.
+
+Variants of both the controllers have been used in various numerical and experimental research tasks.
+A summary of these can be found in [Publications](#publications) section.
+
 ----
-Published papers:
-* [Decoupled Yaw Control on SE(3)](https://ieeexplore.ieee.org/document/8815189)
-* [Adaptive Geometric Control with Neural Network on SE(3) (wind rejection)](https://ieeexplore.ieee.org/document/8619390), [ArXiv link](https://arxiv.org/pdf/1803.06363.pdf)
-    * video links: autonomous [360 back-flip](https://www.youtube.com/watch?v=a-DG2PcUu7k), [hover flight](https://www.youtube.com/watch?v=ouSsrDfi8DM), [attitude flight](https://www.youtube.com/watch?v=zUsOif1SfEs)
-* [PID Geometric control on SE(3)](https://ieeexplore.ieee.org/abstract/document/6669644), [ArXiv link](https://arxiv.org/pdf/1304.6765.pdf)
-* [Geometric control on SE(3)](https://ieeexplore.ieee.org/abstract/document/5717652)
-* [Geometric attitude control on SO(3)](https://ieeexplore.ieee.org/abstract/document/6291756)
-* Other variant:
-  * [Model identification on SE(3)](https://ieeexplore.ieee.org/document/8062614)
-  * [Model identification on SO(3)](https://link.springer.com/content/pdf/10.1007/s12555-016-0714-2.pdf)
-  * [Attitude Control on SO(3) with constraints](https://shankarkulumani.com/2016/08/2016ACC.html)
-    * [Code](https://github.com/fdcl-gwu/2016_ACC_matlab)
-  * [For a rigid dumbbell around an asteroid](https://github.com/fdcl-gwu/asteroid_dumbbell)
+## Codes in this Repository
+
+The following controller/language combinations are available in this repository.
+
+Language | Standard [1] | Decoupled-Yaw [2]
+--------|--------|---------
+C++ |  :white_check_mark: |  :white_check_mark:
+Python |  :white_check_mark: | :x:
+Matlab |  :white_check_mark: |  :white_check_mark:
+
+Note:
+* Documentation for the C++ is inside the `cpp` directory.
+* Unit testing has been implemented in C++ and Python (partial) versions of the controller.
+* You can find the ROS package [here](https://github.com/fdcl-gwu/uav_geometric_controller) (not currently being maintained).
+
+----
+## Citations
+
+If you use either of the controllers, please use the relevant citatations:
+* Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3):
+  ```
+  @article{Lee2010,
+    title={Control of complex maneuvers for a quadrotor UAV using geometric methods on SE (3)},
+    author={Lee, Taeyoung and Leok, Melvin and McClamroch, N Harris},
+    journal={arXiv preprint arXiv:1003.2005},
+    year={2010}
+  }
+  ```
+* Geometric Controls of a Quadrotor with a Decoupled Yaw Control
+  ```
+  @inproceedings{Gamagedara2019,
+    title={Geometric controls of a quadrotor uav with decoupled yaw control},
+    author={Gamagedara, Kanishke and Bisheban, Mahdis and Kaufman, Evan and Lee, Taeyoung},
+    booktitle={2019 American Control Conference (ACC)},
+    pages={3285--3290},
+    year={2019},
+    organization={IEEE}
+  }
+  ```
+  
+----
+## Publications
+
+A selected list of publications that use implementations of the above controllers with/without slight variations:
+* Geometric controls of a quadrotor with a decoupled yaw control:  [paper](https://ieeexplore.ieee.org/document/8815189)
+* Geometric adaptive control with neural networks for a quadrotor UAV in wind fields(wind rejection): [paper](https://ieeexplore.ieee.org/document/8619390), [ArXiv link](https://arxiv.org/pdf/1803.06363.pdf), video: [360 back-flip](https://www.youtube.com/watch?v=a-DG2PcUu7k), [hover flight](https://www.youtube.com/watch?v=ouSsrDfi8DM), [attitude flight](https://www.youtube.com/watch?v=zUsOif1SfEs)
+* Autonomous quadrotor 3D mapping and exploration using exact occupancy probabilities: [video](https://youtu.be/2Q2_-d8kNu0)
+* Autonomous flight of a quadrotor UAV with the states estimated by a delayed Kalman filter: [video](https://youtu.be/9e71BL-I07E)
+*  Laser guided landing on an inclined surface: [paper](http://dx.doi.org/10.2514/1.G001229), [video](https://youtu.be/Tx_WsYDYz7g)
+* PID Geometric control on SE(3): [paper](https://ieeexplore.ieee.org/abstract/document/6669644), [ArXiv link](https://arxiv.org/pdf/1304.6765.pdf)
+* Geometric control on SE(3): [paper](https://ieeexplore.ieee.org/abstract/document/5717652)
+* Geometric attitude control on SO(3): [paper](https://ieeexplore.ieee.org/abstract/document/6291756)
+* Model identification on SE(3): [paper](https://ieeexplore.ieee.org/document/8062614)
+* Model identification on SO(3): [paper](https://link.springer.com/content/pdf/10.1007/s12555-016-0714-2.pdf)
+* Attitude Control on SO(3) with constraints: [paper](https://shankarkulumani.com/2016/08/2016ACC.html), [Code](https://github.com/fdcl-gwu/2016_ACC_matlab)
+* For a rigid dumbbell around an asteroid: [code](https://github.com/fdcl-gwu/asteroid_dumbbell)
