@@ -233,6 +233,13 @@ void fdcl::control::attitude_control(void)
 }
 
 
+void fdcl::control::output_fM(double &f, Vector3 &M)
+{
+    f = this->f_total;
+    M = this->M;
+}
+
+
 void fdcl::control::set_error_to_zero(void)
 {
     // Set integral terms to zero.
@@ -294,6 +301,13 @@ void fdcl::control::load_config(void)
         l, 0.0, -l, 0.0,
         -c_tf, c_tf, -c_tf, c_tf;
     fM_to_forces_inv = fM_to_forces.inverse();
+}
+
+
+void fdcl::control::output_uav_properties(double &m, Matrix3 &J)
+{
+    m = this->m;
+    J = this->J;
 }
 
 

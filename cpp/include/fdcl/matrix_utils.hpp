@@ -54,7 +54,7 @@ Vector3 vee(const Matrix3 V);
 
 /** \fn void saturate(Vector3 &x, const double x_min, const double x_max)
  * Saturate the elements of a given 3x1 vector between a minimum and a maximum
- * velue.
+ * value.
  * @param x     vector which the elements needed to be saturated
  * @param x_min minimum value for each element
  * @param x_max maximum value for each element

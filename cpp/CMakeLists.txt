@@ -60,6 +60,14 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
                         "${gmock_SOURCE_DIR}/include")
 endif()
 
-add_executable(utest tests/utest.cpp)
-target_link_libraries(utest gtest gmock_main)
-add_test(NAME unit_test COMMAND utest)
+add_executable(test_all 
+    tests/test_all.cpp
+    tests/test_matrix_utils.cpp
+    tests/test_controller.cpp
+)
+target_link_libraries(test_all 
+    gtest 
+    gmock_main
+    controller
+)
+add_test(NAME unit_test COMMAND test_all)

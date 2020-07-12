@@ -131,6 +131,23 @@ public:
      */
     double get_time(void);
 
+
+    /** \fn void output_uav_properties(double &m_out, Matrix3 &J_out)
+     * Outputs the mass and the inertia matrix of the UAV.
+     * @param m_out 
+     * @param J_out
+     */
+    void output_uav_properties(double &m, Matrix3 &J);
+
+
+    /** \fn void output_fM(double &f, Vector3 &M)
+     * Outputs the control force and moments.
+     * @param f 
+     * @param M
+     */
+    void output_fM(double &f, Vector3 &M);
+
+
 private:
     fdcl::state_t *state = nullptr; /**< Pointer to the current states */
     fdcl::command_t *command = nullptr; /**< Pointer to the desired states */
