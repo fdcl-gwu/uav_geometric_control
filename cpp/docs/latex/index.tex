@@ -1,0 +1,77 @@
+\subsection*{Compiling}
+
+Following instructions assume you have git already installed in your system.
+
+
+\begin{DoxyEnumerate}
+\item Install dependencies. 
+\begin{DoxyCode}
+1 # Linux
+2 sudo apt-get install -y cmake pkg-config
+3 
+4 # Mac
+5 brew install cmake pkg-config
+\end{DoxyCode}
+
+\item Update submodules 
+\begin{DoxyCode}
+1 git submodule update --init --recursive
+\end{DoxyCode}
+
+\item Setup compile directory inside the {\ttfamily cpp} directory. 
+\begin{DoxyCode}
+1 mkdir build
+2 cd build
+3 cmake ../
+\end{DoxyCode}
+
+\item Compile and run. 
+\begin{DoxyCode}
+1 make example
+2 ./example
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+
+For more information, make sure to check the {\ttfamily Classes} tab.
+
+\subsection*{Unit Tests}
+
+
+\begin{DoxyEnumerate}
+\item Build the unit tests first\+: 
+\begin{DoxyCode}
+1 make test\_all
+\end{DoxyCode}
+
+\item Run the unit test 
+\begin{DoxyCode}
+1 ./test\_all
+\end{DoxyCode}
+ All the tests must pass.
+\end{DoxyEnumerate}
+
+\subsection*{Generating the Documentation}
+
+This C++ code is documented using Doxygen. Doxygen automatically generates the documentation based on the comments in header files.
+
+If you want to update the documentation, follow the below steps.
+\begin{DoxyEnumerate}
+\item If not already installed, install {\ttfamily doxygen}\+: 
+\begin{DoxyCode}
+1 # Linux
+2 sudo apt-get install -y doxygen graphviz
+3 
+4 # Mac
+5 brew install graphviz doxygen
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Run doxygen (from {\ttfamily master} branch) 
+\begin{DoxyCode}
+1 cd Doxygen
+2 doxygen Doxyfile
+\end{DoxyCode}
+ 
+\end{DoxyEnumerate}
