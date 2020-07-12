@@ -37,9 +37,34 @@ int main(int argc, char **argv)
     config_file = new fdcl::param();
     config_file->open("../uav.cfg");
 
-    fdcl::control control(state, command, config_file);
-
+    fdcl::control controller(state, command, config_file);
     std::cout << "Controller initialized" << std::endl;
+
+    double f_out;
+    Vector3 M_out;
+
+    for (int i = 0; i < 10; i++)
+    {
+        state->x << 0.0, 0.0, i;
+        state->v.setZero();
+        state->a.setZero();
+        state->R.setIdentity();
+        state->W.setZero();
+
+        command->xd.setZero();
+        command->xd_dot.setZero();
+        command->xd_2dot.setZero();
+        command->xd_3dot.setZero();
+        command->xd_4dot.setZero();
+        command->b1d << 1.0, 0.0, 0.0;
+        command->b1d_dot.setZero();
+        command->b1d_ddot.setZero();
+
+        controller.position_control();
+        controller.output_fM(f_out, M_out);
+
+        std::cout << "i = " << i << ":\tf = " << f_out << std::endl;
+    }
 
     config_file->close();
 
