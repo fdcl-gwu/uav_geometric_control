@@ -1,4 +1,4 @@
-# Geometric Control on SE(3)
+# Geometric Control of a Quadrotor UAV on SE(3)
 
 <center>
   <img src="./images/combined.png"  width="400"/>
@@ -6,7 +6,7 @@
 
 This includes the geometric controller in SE(3) we use in the Flight Dynamics and Control Lab, in different programming languages.
 We use two main versions of the controller:
-1. [Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3)](https://arxiv.org/pdf/1003.2005.pdf).
+1. [Geometric tracking control of a quadrotor UAV on SE(3)](https://arxiv.org/pdf/1003.2005.pdf).
 2. [Geometric Controls of a Quadrotor with a Decoupled Yaw Control](https://doi.org/10.23919/ACC.2019.8815189)
 
 The main difference between those two is that the second one decouples the yaw control in the attitude controller.
@@ -36,14 +36,14 @@ Note:
 ## Citations
 
 If you use either of the controllers, please use the relevant citatations:
-* Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3):
+* Geometric tracking control of a quadrotor UAV on SE(3):
   ```
-  @article{Lee2010,
-    title={Control of complex maneuvers for a quadrotor UAV using geometric methods on SE (3)},
-    author={Lee, Taeyoung and Leok, Melvin and McClamroch, N Harris},
-    journal={arXiv preprint arXiv:1003.2005},
-    year={2010}
-  }
+  @INPROCEEDINGS{5717652,
+  author={T. {Lee} and M. {Leok} and N. H. {McClamroch}},
+  booktitle={IEEE Conference on Decision and Control}, 
+  title={Geometric tracking control of a quadrotor UAV on SE(3)}, 
+  year={2010},
+  pages={5420-5425},}
   ```
 * Geometric Controls of a Quadrotor with a Decoupled Yaw Control
   ```
