@@ -24,13 +24,14 @@ The following controller/language combinations are available in this repository.
 Language | Standard [1] | Decoupled-Yaw [2]
 --------|--------|---------
 C++ |  :white_check_mark: |  :white_check_mark:
-Python |  :white_check_mark: | :x:
+Python |  :white_check_mark: | :white_check_mark:
 Matlab |  :white_check_mark: |  :white_check_mark:
 
 Note:
+* You can find the ROS/Gazebo simulation environment [here](https://github.com/fdcl-gwu/uav_simulator.git).
+* Python decoupled-yaw controller can be found in the ROS/Gazebo repository.
 * Documentation for the C++ is inside the `cpp` directory.
 * Unit testing has been implemented in C++ and Python (partial) versions of the controller.
-* You can find the ROS package [here](https://github.com/fdcl-gwu/uav_geometric_controller) (not currently being maintained).
 
 ----
 ## Citations
