@@ -99,10 +99,10 @@ A2_ddot = - hat(desired.b1_2dot) * b3c ...
 [b2c, b2c_dot, b2c_ddot] = deriv_unit_vector(A2, A2_dot, A2_ddot);
 
 b1c = hat(b2c) * b3c;
-b1c_dot = hat(b2c_dot) * b3c+hat(b2c)*b3c_dot;
+b1c_dot = hat(b2c_dot) * b3c + hat(b2c) * b3c_dot;
 b1c_ddot = hat(b2c_ddot) * b3c ...
     + 2 * hat(b2c_dot) * b3c_dot ...
-    + hat(b2c) * b2c_ddot;
+    + hat(b2c) * b3c_ddot;
 
 Rc = [b1c, b2c, b3c];
 Rc_dot = [b1c_dot, b2c_dot, b3c_dot];
