@@ -24,12 +24,12 @@ The following controller/language combinations are available in this repository.
 Language | Standard [1] | Decoupled-Yaw [2]
 --------|--------|---------
 C++ |  :white_check_mark: |  :white_check_mark:
-Python |  :white_check_mark: | :white_check_mark:
+Python |  :white_check_mark: | :white_check_mark:**
 Matlab |  :white_check_mark: |  :white_check_mark:
 
 Note:
 * You can find the ROS/Gazebo simulation environment [here](https://github.com/fdcl-gwu/uav_simulator.git).
-* Python decoupled-yaw controller can be found in the ROS/Gazebo repository.
+* Python decoupled-yaw controller can be found in the ROS/Gazebo repository.**
 * Documentation for the C++ is inside the `cpp` directory.
 * Unit testing has been implemented in C++ and Python (partial) versions of the controller.
 
@@ -39,7 +39,7 @@ Note:
 If you use either of the controllers, please use the relevant citatations:
 * Geometric tracking control of a quadrotor UAV on SE(3):
   ```
-  @INPROCEEDINGS{5717652,
+  @inproceedings{Lee2010,
   author={T. {Lee} and M. {Leok} and N. H. {McClamroch}},
   booktitle={IEEE Conference on Decision and Control}, 
   title={Geometric tracking control of a quadrotor UAV on SE(3)}, 
@@ -62,6 +62,7 @@ If you use either of the controllers, please use the relevant citatations:
 ## Publications
 
 A selected list of publications that use implementations of the above controllers with/without slight variations:
+* Geometric adaptive controls of a quadrotor UAV with decoupled attitude dynamics: [paper](https://doi.org/10.1115/1.4052714), [repo](https://github.com/fdcl-gwu/decoupled-yaw-controller-comparison), [video](https://youtu.be/w4UcEp5jb0E)
 * Geometric controls of a quadrotor with a decoupled yaw control:  [paper](https://ieeexplore.ieee.org/document/8815189)
 * Geometric adaptive control with neural networks for a quadrotor UAV in wind fields(wind rejection): [paper](https://ieeexplore.ieee.org/document/8619390), [ArXiv link](https://arxiv.org/pdf/1803.06363.pdf), video: [360 back-flip](https://www.youtube.com/watch?v=a-DG2PcUu7k), [hover flight](https://www.youtube.com/watch?v=ouSsrDfi8DM), [attitude flight](https://www.youtube.com/watch?v=zUsOif1SfEs)
 * Autonomous quadrotor 3D mapping and exploration using exact occupancy probabilities: [video](https://youtu.be/2Q2_-d8kNu0)
