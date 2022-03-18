@@ -20,6 +20,8 @@ A summary of these can be found in [Publications](#publications) section.
 ## Codes in this Repository
 
 The following controller/language combinations are available in this repository.
+The documenteds for some of the languages can be found [here](https://fdcl-gwu.github.io/uav_geometric_control/).
+Other languages are documented directly in the source files.
 
 Language | Standard [1] | Decoupled-Yaw [2]
 --------|--------|---------
@@ -75,3 +77,20 @@ A selected list of publications that use implementations of the above controller
 * Model identification on SO(3): [paper](https://link.springer.com/content/pdf/10.1007/s12555-016-0714-2.pdf)
 * Attitude Control on SO(3) with constraints: [paper](https://shankarkulumani.com/2016/08/2016ACC.html), [Code](https://github.com/fdcl-gwu/2016_ACC_matlab)
 * For a rigid dumbbell around an asteroid: [code](https://github.com/fdcl-gwu/asteroid_dumbbell)
+
+
+----
+## Generating the Documentation
+### C++
+1. Switch to the docs branch: `git checkout docs`
+1. If you update the code in the `master` branch, merge it to the `docs` branch: `git merge master`
+1. Change the directory to docs directory: `cd docs/cpp/`
+1. Make sure all the dependencies are installed:
+    ```sh
+    # Linux
+    sudo apt-get install -y doxygen graphviz
+
+    # Mac
+    brew install graphviz doxygen
+    ```
+1. Generate the documentation: `doxygen Doxygen`
