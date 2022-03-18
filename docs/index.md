@@ -5,4 +5,4 @@ This GitHub docs page includes the documentation for the geometric controllers w
 Currently, following languages have generated documentations.
 Other programming languauges are documented, but you need to check their source files for the documentation.
 
-* [C++]()
+* [C++](./cpp/index.md)
