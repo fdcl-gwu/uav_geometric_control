@@ -1,5 +1,8 @@
 # FDCL Controllers in C++
 
+This page has instructions for install dependencies and compiling.
+If you just want to check the class documentation, please check [here](./html/index.html).
+
 ## Compiling
 Following instructions assume you have git already installed in your system.
 
